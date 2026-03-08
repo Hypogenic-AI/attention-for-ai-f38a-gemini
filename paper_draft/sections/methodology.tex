@@ -1,0 +1,24 @@
+\section{Methodology}
+\label{sec:method}
+
+We conduct a dual-pronged empirical analysis to evaluate the structural capability of the attention mechanism across Generative AI and Internet user behavior.
+
+\subsection{Experiment 1: Attention as an Informational Bottleneck}
+\para{Approach} We utilize a pre-trained \gpttwo model to measure how the mathematical self-attention mechanism filters information. We pass a synthetic text context through the model and extract the internal attention matrices $\mathbf{A} \in \mathbb{R}^{L \times L \times H}$, where $L$ is the sequence length and $H$ is the number of heads. 
+
+\para{Metric} We use {\em Shannon Entropy} as a proxy for attention focus. For a given attention weight distribution $P$ over context tokens, the entropy $H(P)$ is calculated as:
+\begin{equation}
+    H(P) = -\sum_{i} P_i \ln P_i
+\end{equation}
+A high entropy implies a uniform, unfocused distribution (noise), while a low entropy indicates a sharp informational bottleneck (focus).
+
+\para{Baseline} We compare the model's entropy against a {\bf Uniform Attention} baseline, which assumes equal probability across all past tokens ($P_i = 1/L$).
+
+\subsection{Experiment 2: Attention as a Predictor of Human Behavior}
+\para{Data Construction} We simulate sequential behavior for 2,000 Internet users interacting with items. The dataset is designed with a latent "interest trajectory": 30\% of clicks follow structured transition rules mimicking sustained human focus, while 70\% represent random exploration. Each user has a sequence of length 15. We split the data into 1,600 users for training and 400 for testing.
+
+\para{Model} We implement the {\sasrec} model \cite{kang2018self}, which treats user interaction sequences exactly as a transformer treats token sequences. It uses scaled dot-product self-attention to predict the next item that will capture the user's attention.
+
+\para{Baseline} We compare against a {\bf Most Popular} baseline, which recommends items based on global frequency, disregarding sequential context and immediate user focus.
+
+\para{Metric} We evaluate performance using the {\bf \hrfive}, measuring the proportion of times the actual next interaction was within the top 5 predicted items.

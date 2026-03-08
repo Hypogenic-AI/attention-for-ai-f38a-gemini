@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "stages": {
+    "resource_finder": {
+      "success": true,
+      "completion_marker": "/workspaces/attention-for-ai-f38a-gemini/.resource_finder_complete",
+      "outputs": {
+        "literature_review": "/workspaces/attention-for-ai-f38a-gemini/literature_review.md",
+        "resources_catalog": "/workspaces/attention-for-ai-f38a-gemini/resources.md",
+        "papers_dir": "/workspaces/attention-for-ai-f38a-gemini/papers",
+        "datasets_dir": "/workspaces/attention-for-ai-f38a-gemini/datasets",
+        "code_dir": "/workspaces/attention-for-ai-f38a-gemini/code"
+      },
+      "log_file": "/workspaces/attention-for-ai-f38a-gemini/logs/resource_finder_gemini.log",
+      "transcript_file": "/workspaces/attention-for-ai-f38a-gemini/logs/resource_finder_gemini_transcript.jsonl",
+      "elapsed_time": 581.8486461639404
+    },
+    "experiment_runner": {
+      "success": true,
+      "return_code": 0,
+      "elapsed_time": 421.35888409614563,
+      "log_file": "/workspaces/attention-for-ai-f38a-gemini/logs/execution_gemini.log",
+      "transcript_file": "/workspaces/attention-for-ai-f38a-gemini/logs/execution_gemini_transcript.jsonl"
+    }
+  },
+  "work_dir": "/workspaces/attention-for-ai-f38a-gemini"
+}

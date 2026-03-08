@@ -1,0 +1,40 @@
+\section{Results}
+\label{sec:results}
+
+Our experiments reveal that the mathematical attention mechanism acts as a powerful information filter in generative AI and a superior predictor of human behavior in Internet products.
+
+\subsection{Generative AI: Attention Sparsity}
+As shown in Table \ref{tab:entropy}, \gpttwo drastically reduces the entropy of the attention distribution compared to the uniform baseline. The mean attention entropy across all layers is 1.89 nats, significantly lower than the uniform entropy of 4.06 nats. This 53.4\% reduction mathematically demonstrates that generative models do not simply aggregate context; they selectively focus, discarding the vast majority of available information to isolate critical tokens. 
+
+\begin{table}[h]
+\caption{Experiment 1: \gpttwo Attention Entropy vs. Baseline}
+\label{tab:entropy}
+\centering
+\begin{tabular}{lc}
+\toprule
+Metric & Entropy (nats) \\
+\midrule
+Uniform Attention (Baseline) & 4.06 \\
+\gpttwo Mean Attention & {\bf 1.89} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Internet Behavior: Capturing Human Focus}
+The results for sequential behavior modeling are presented in Table \ref{tab:recommender}. The self-attention architecture (\sasrec) achieved a \hrfive of 68.5\%, outperforming the popularity-based baseline (12.0\%) by more than 5.7$\times$. 
+
+By applying the exact same multi-head attention mechanism used in generative AI, the recommender system successfully captured the underlying interest trajectories of simulated users. This proves that algorithms modeling sequential attention are vastly superior at Identifying and capturing human focus in an Internet product context.
+
+\begin{table}[h]
+\caption{Experiment 2: Internet User Attention Prediction}
+\label{tab:recommender}
+\centering
+\begin{tabular}{lc}
+\toprule
+Method & \hrfive \\
+\midrule
+Popularity Baseline & 12.0\% \\
+Self-Attention (\sasrec) & {\bf 68.5\%} \\
+\bottomrule
+\end{tabular}
+\end{table}

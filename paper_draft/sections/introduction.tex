@@ -1,0 +1,19 @@
+\section{Introduction}
+\label{sec:intro}
+
+The introduction of the attention mechanism \cite{vaswani2017attention} has sparked a revolution in artificial intelligence, enabling the development of large-scale models that can navigate complex dependencies in text, images, and video \cite{dosovitskiy2021image}. Concurrently, the digital landscape has evolved into a global "attention economy," where Internet products strategically filter and distribute content to capture the limited cognitive focus of human users \cite{gonzalez2024attention}. While both fields utilize the concept of "attention," they are often studied in isolation—one as a mathematical tool for scaling transformers, and the other as a socio-technical principle for platform growth.
+
+{\bf Why does this connection matter?} Understanding the shared structural foundation between artificial attention and behavioral attention is crucial for decoding the algorithms that drive today's AI and Internet economies. If the same mathematical mechanism optimizes both machine learning and human engagement, it implies that digital platforms are essentially building "transformers" of human behavior to monetize focus.
+
+Despite the intuitive overlap, there is a lack of empirical work that mathematically links the internal attention sparsity of generative models with the predictive effectiveness of attention-based recommendation in the Internet field. Most existing research focuses either on the technical optimization of transformer layers or on high-level cognitive analyses of the attention economy \cite{pilgrim2021rising}.
+
+In this paper, we examine the hypothesis that the mathematical attention mechanism is a universal architecture applicable across Generative AI and Internet product modeling. We conduct two parallel experiments: one analyzing the informational bottleneck in a pre-trained \gpttwo model, and another modeling sequential user interest using a self-attention based recommender system (\sasrec). 
+
+Our results show that \gpttwo reduces attention entropy from 4.06 nats to 1.89 nats, isolating critical tokens with extreme sparsity. Furthermore, applying this identical structure to simulated Internet behavior yields a \hrfive of 68.5\%, a massive improvement over the 12.0\% achieved by static popularity baselines.
+
+Our main contributions are as follows:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item We empirically demonstrate that generative AI utilizes attention as a strict informational bottleneck, mirroring human cognitive limitations.
+    \item We validate that the self-attention architecture is significantly more effective at capturing human interest trajectories than traditional non-personalized methods.
+    \item We provide a unifying theoretical bridge between the mathematical mechanization of attention in AI and the capture of focus in the Internet field.
+\end{itemize}

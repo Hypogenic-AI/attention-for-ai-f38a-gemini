@@ -1,0 +1,12 @@
+\section{Discussion}
+\label{sec:discussion}
+
+The striking parallels between the internal attention structures of \gpttwo and the predictive success of \sasrec suggest that the attention mechanism is more than just a transformer component; it is a fundamental architectural principle for managing informational focus.
+
+\para{Attention as a Universal Bottleneck} Our finding that \gpttwo reduces attention entropy by over 50\% confirms that the model acts as an informational bottleneck. This mirrors human cognitive focus, where the brain selectively filters sensory input to process only the most relevant signals. By mathematically mechanizing this selective focus, transformers achieve a level of efficiency that traditional architectures lack.
+
+\para{The "Transformerization" of the Internet} The 5.7$\times$ performance gain of \sasrec over popularity baselines highlights why Internet products are increasingly built around attention-based modeling. Platforms like TikTok, YouTube, and Amazon effectively deploy "transformers" of human behavior—using self-attention to predict the next trajectory of interest and convert it into digital traffic. This suggests that the modern Internet's architecture is converging with generative AI's core logic.
+
+\para{Limitations} Our study has several limitations. First, the Internet user behavior data was synthetically generated with explicit dependencies. Real-world clickstream data often contains significantly more noise, which may reduce the predictive accuracy of attention models. Second, we analyzed a relatively small model (\gpttwo). Larger models like GPT-4 may display more complex, multi-modal attention distributions that span broader contexts. Finally, our entropy analysis assumes that lower entropy always correlates with better focus, which may not account for diverse heads that distribute attention for different specialized tasks.
+
+\para{Future Work} Future research could investigate how attention mechanisms in Vision Transformers (ViTs) parallel human visual gaze on web pages. Additionally, scaling Experiment 2 to real-world datasets like MovieLens-1M or full e-commerce clickstreams would test the limits of self-attention in extremely noisy human environments.

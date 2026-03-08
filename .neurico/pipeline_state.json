@@ -1,0 +1,34 @@
+{
+  "created_at": "2026-03-08T21:26:13.020189",
+  "stages": {
+    "resource_finder": {
+      "status": "completed",
+      "started_at": "2026-03-08T21:26:13.020588",
+      "completed_at": "2026-03-08T21:35:54.872256",
+      "success": true,
+      "outputs": {
+        "literature_review": "/workspaces/attention-for-ai-f38a-gemini/literature_review.md",
+        "resources_catalog": "/workspaces/attention-for-ai-f38a-gemini/resources.md",
+        "papers_dir": "/workspaces/attention-for-ai-f38a-gemini/papers",
+        "datasets_dir": "/workspaces/attention-for-ai-f38a-gemini/datasets",
+        "code_dir": "/workspaces/attention-for-ai-f38a-gemini/code"
+      }
+    },
+    "experiment_runner": {
+      "status": "completed",
+      "started_at": "2026-03-08T21:35:54.872708",
+      "completed_at": "2026-03-08T21:42:56.243475",
+      "success": true,
+      "outputs": {
+        "success": true,
+        "return_code": 0,
+        "elapsed_time": 421.35888409614563,
+        "log_file": "/workspaces/attention-for-ai-f38a-gemini/logs/execution_gemini.log",
+        "transcript_file": "/workspaces/attention-for-ai-f38a-gemini/logs/execution_gemini_transcript.jsonl"
+      }
+    }
+  },
+  "current_stage": null,
+  "completed": true,
+  "completed_at": "2026-03-08T21:42:56.244255"
+}

@@ -1,0 +1,503 @@
+You are an academic paper writer. Generate a complete NEURIPS style paper
+based on the experiment results provided.
+
+════════════════════════════════════════════════════════════════════════════════
+                         IMPORTANT: BEFORE YOU START
+════════════════════════════════════════════════════════════════════════════════
+
+Before writing any content, you MUST complete these steps:
+
+1. READ THE SKILL: Review the paper-writer skill at .gemini/skills/paper-writer/SKILL.md
+2. READ THE STYLE GUIDE: Study templates/paper_writing/lab_style_guide.md carefully
+3. REVIEW EXAMPLES: Browse paper_examples/ for formatting and language patterns:
+   - Look at sections/1.introduction.tex for language style
+   - Look at tables/*.tex for table formatting
+   - Look at commands/*.tex for macro usage
+4. VERIFY COMMAND TEMPLATES: Command templates (math.tex, general.tex, macros.tex) are pre-copied to paper_draft/commands/
+
+CRITICAL: Reference example papers for FORMATTING and LANGUAGE STYLE only.
+Do NOT copy content, phrasing, or narrative structure from the example papers.
+The examples are in a different research domain - focus only on presentation style.
+
+════════════════════════════════════════════════════════════════════════════════
+                            EXPERIMENT REPORT
+════════════════════════════════════════════════════════════════════════════════
+
+# Research Report: The Universal Attention Mechanism
+
+## 1. Executive Summary
+This research explores the hypothesis that the mathematical &#34;attention mechanism&#34; is not merely a tool for scaling transformers in generative AI, but a fundamental principle that also governs the core mechanisms of Internet products competing for human attention. By analyzing the internal attention structures of a generative language model (GPT-2) and comparing them to the predictive modeling of Internet user behavior (via a Self-Attention Sequential Recommender), we find striking parallels. Experiment 1 demonstrates that generative AI utilizes attention as a severe information bottleneck, compressing uniform probability distributions (Entropy 4.06) into highly focused sparse weights (Entropy 1.89). Experiment 2 shows that applying this identical mathematical structure to simulated Internet user behavior captures human interest trajectories far more effectively than popularity-based content distribution, achieving a Hit Rate @ 5 of 68.5% compared to the baseline&#39;s 12.0%. These findings empirically validate that the same mathematical concept—attention—efficiently captures both the latent relationships in data (AI) and the cognitive limitations of users (Internet).
+
+## 2. Goal
+The primary goal of this research is to empirically validate the hypothesis that the attention mechanism is universally applicable across Generative AI and the broader Internet field. Specifically, we aim to show that the structural capability of &#34;attention&#34; to act as an information filter in neural networks perfectly mirrors the &#34;attention economy&#34; where internet products filter and distribute content to capture human focus. This addresses a conceptual gap in understanding the shared theoretical foundation between modern AI architectures and internet platform dynamics.
+
+## 3. Data Construction
+
+### Dataset Description
+- **Generative AI Text (Synthetic)**: We constructed a short paragraph describing the theoretical alignment of human, AI, and Internet attention mechanisms to serve as the context for analyzing the model&#39;s internal attention maps.
+- **Internet User Behavior (Simulated)**: A synthetic sequential dataset representing 2000 internet users interacting with items (e.g., viewing web pages, products). The data was designed with latent transition rules: 30% of user clicks follow a structured &#34;interest&#34; trajectory mimicking sustained human attention, while 70% represent random exploration.
+
+### Train/Val/Test Splits
+For the Internet User Behavior dataset:
+- Total Users: 2000 (sequence length = 15)
+- Train Split: 1600 users (80%)
+- Test Split: 400 users (20%)
+
+## 4. Experiment Description
+
+### Methodology
+
+#### Approach
+The research conducts a dual-pronged empirical analysis:
+1. **Model Attention (Generative AI)**: We pass text through a pre-trained GPT-2 model to extract and measure its internal attention matrices across all layers. We use *Entropy* as a proxy for attention focus. High entropy implies distributed, unfocused attention (like random noise); low entropy implies a sharp informational bottleneck.
+2. **Behavioral Attention (Internet Field)**: We model sequential user behavior using a Self-Attention based Recommender System (SASRec) and a Most Popular baseline. The SASRec model treats user interactions exactly as a transformer treats a sequence of tokens, using multi-head self-attention to predict the next item that will capture the user&#39;s focus.
+
+#### Baselines
+- Generative AI: **Uniform Attention**, which assumes equal weight given to all past tokens.
+- Internet Field: **Popularity Baseline**, which recommends the globally most frequent items, disregarding sequential context and immediate user focus.
+
+### Implementation Details
+
+#### Tools and Libraries
+- `torch` v2.1.0, `transformers` v4.x, `numpy`, `scipy`, `matplotlib`
+- GPU: NVIDIA GeForce RTX 3090
+
+#### Hyperparameters
+- **SASRec Simulator**: Embedding Dimension = 32, Heads = 1, Epochs = 15, Batch Size = 64, Learning Rate = 0.01.
+
+### Experimental Protocol
+- **Generative AI Metric**: Mean Attention Entropy (nats) compared to Uniform Entropy.
+- **Internet Attention Metric**: Hit Rate @ 5 (HR@5), measuring the proportion of times the actual next user interaction was successfully predicted within the top 5 recommendations.
+
+### Raw Results
+
+#### Experiment 1: Generative AI Attention Entropy
+| Metric | Value |
+|--------|-------|
+| Uniform Attention Entropy (Baseline) | 4.06 nats |
+| GPT-2 Mean Attention Entropy | 1.89 nats |
+
+#### Experiment 2: Internet User Attention Prediction
+| Method | Hit Rate @ 5 (HR@5) |
+|--------|---------------------|
+| Popularity Baseline | 0.1200 (12.0%) |
+| Self-Attention (SASRec) | 0.6850 (68.5%) |
+
+## 5. Result Analysis
+
+### Key Findings
+1. **Attention as an Informational Bottleneck in AI**: The GPT-2 model drastically reduces the entropy of the attention distribution (from a theoretical maximum of 4.06 down to 1.89). This mathematically proves that generative models do not simply aggregate context; they selectively focus, discarding the vast majority of available context to isolate critical tokens. This mirrors human cognitive bottlenecks.
+2. **Attention as a Predictor of Human Behavior**: The self-attention architecture (SASRec) outperformed the baseline by over 5.7x (68.5% vs 12.0%). By applying the exact same multi-head attention mechanism used in GPT-2, the recommender system successfully captured the underlying &#34;interest trajectory&#34; of simulated human users, demonstrating that internet platforms effectively deploy attention mechanics to monetize and distribute traffic.
+
+### Visualizations
+*(Note: Visualizations are saved in the `results/plots/` directory during execution)*
+- `gpt2_attention_map.png`: Shows the high sparsity of the model&#39;s focus on the final layer.
+- `gpt2_entropy_across_layers.png`: Demonstrates how attention becomes progressively more focused or specialized across different layers.
+- `recommender_comparison.png`: Highlights the massive predictive gap between attention-based modeling and static popularity in internet behavior.
+
+### Limitations
+- The internet user behavior data was synthetically generated with explicit temporal dependencies to simulate human attention. Real-world clickstream or e-commerce data (like the provided HuggingFace samples) contains far more noise.
+- We analyzed a relatively small generative model (GPT-2). Larger models (GPT-4) might display more complex, multi-modal attention distributions that span broader contexts.
+
+## 6. Conclusions
+The hypothesis is strongly supported by the experimental results. The mathematical formulation of &#34;attention&#34;—specifically scaled dot-product self-attention—acts as a universal architecture. In Generative AI, it successfully resolves the bottleneck of processing massive sequences by dynamically filtering information (proved by low entropy). In the Internet domain, algorithms that employ this identical mathematical structure are vastly superior at identifying and capturing human focus, proving that the theory of the modern internet is indeed built squarely on the concept and mechanization of human attention.
+
+## 7. Next Steps
+1. **Real-world Benchmarking**: Scale Experiment 2 to run on the full `movielens-1m` or `e-commerce` clickstream dataset rather than small samples or synthetics to test the limits of self-attention in extremely noisy human environments.
+2. **Cross-Modal Attention**: Investigate how attention mechanisms in Vision Transformers (ViTs) parallel user visual attention on internet web pages (e.g., analyzing heatmaps of human gaze vs. ViT attention maps).
+
+
+════════════════════════════════════════════════════════════════════════════════
+                            RESEARCH PLAN
+════════════════════════════════════════════════════════════════════════════════
+
+## Motivation &amp; Novelty Assessment
+
+### Why This Research Matters
+This research explores the unifying principle of &#34;attention&#34; across different domains, highlighting how the bottleneck of human perception aligns with the mathematical mechanisms of Generative AI and Internet product architectures. Understanding this connection is crucial because it reveals that the algorithms driving today&#39;s AI and Internet economies are fundamentally optimizing for the same constraint: limited human attention. This can inform better, more ethical designs for AI and digital platforms.
+
+### Gap in Existing Work
+While the literature extensively covers the technical details of self-attention in models like Transformers (e.g., Vaswani et al., 2017) and separately analyzes the &#34;attention economy&#34; from a socio-cognitive perspective (e.g., González de la Torre et al., 2024), there is a lack of empirical work that mathematically and experimentally links the artificial attention mechanisms in generative AI with the behavioral attention mechanisms deployed by Internet products (like recommendation systems).
+
+### Our Novel Contribution
+We empirically demonstrate the structural similarity between artificial attention in generative models and behavioral attention in Internet recommendation algorithms. We show that the self-attention mathematical formulation serves both as a powerful information filter in Generative AI (e.g., GPT models) and as a highly effective model for capturing and distributing human attention in the Internet field (e.g., SASRec for content distribution).
+
+### Experiment Justification
+- Experiment 1: Generative AI Attention Analysis (Model-side). Why needed? To empirically measure how attention mechanisms act as information bottlenecks in LLMs, focusing on specific tokens and filtering out noise, analogous to human perceptual bottlenecks.
+- Experiment 2: Internet/Human Attention Modeling (Product-side). Why needed? To demonstrate how recommendation algorithms (which drive the Internet economy) utilize the exact same self-attention mechanisms to accurately predict and capture user attention, outperforming models that lack this mechanism.
+
+---
+
+## Research Question
+Is the mathematical attention mechanism not only the core driver of Generative AI&#39;s effectiveness but also the fundamental algorithmic structure underlying Internet products&#39; ability to capture and distribute human attention?
+
+## Background and Motivation
+The attention mechanism, originally proposed for machine translation, has revolutionized generative AI. Concurrently, the Internet operates on an &#34;attention economy,&#34; where platforms compete for limited user focus. This research bridges the gap by showing that both domains share a core structural reliance on the same mathematical mechanism of attention to filter information and predict engagement.
+
+## Hypothesis Decomposition
+1. **Generative AI Sub-hypothesis**: In generative AI models, attention acts as a strict informational bottleneck, concentrating computational focus on a sparse subset of inputs, much like human cognitive focus.
+2. **Internet Field Sub-hypothesis**: In Internet products, algorithms that explicitly model sequential user attention (using self-attention, e.g., SASRec) are significantly more effective at capturing user interest and converting it into traffic than traditional non-attention methods.
+
+## Proposed Methodology
+
+### Approach
+We will conduct two parallel experiments: one analyzing the internal attention weights of a generative AI model (GPT-2 via HuggingFace) to measure attention sparsity/entropy, and another evaluating a self-attention-based recommendation system (SASRec) against baselines on user interaction data to measure its effectiveness in capturing human attention.
+
+### Experimental Steps
+1. **Setup Environment &amp; Data**: Prepare the Python environment and load the provided MovieLens/E-commerce interaction data.
+2. **Experiment 1 (Generative AI Attention)**:
+   - Load a pre-trained GPT-2 model.
+   - Process sample texts and extract attention matrices from all layers.
+   - Calculate attention entropy and sparsity to demonstrate its filtering capability.
+3. **Experiment 2 (Internet Attention/Recommendation)**:
+   - Implement/adapt a sequential recommendation baseline (e.g., Popularity or simple Markov Chain).
+   - Implement/adapt the SASRec (Self-Attention) model using the provided code/data.
+   - Train and evaluate both on the behavioral dataset.
+4. **Analysis**: Compare the structural patterns of attention in the LLM with the predictive power of attention in the recommender system.
+
+### Baselines
+- For Generative AI: Uniform attention (maximum entropy) as a theoretical baseline.
+- For Internet/Recommendation: Most Popular item recommendation (a common non-personalized baseline) and/or Matrix Factorization.
+
+### Evaluation Metrics
+- **Model Attention**: Attention Entropy (lower means more focused), Sparsity.
+- **User Attention (Recommendation)**: Hit Rate @ K (HR@K), Normalized Discounted Cumulative Gain (NDCG@K) - standard metrics for predicting user attention/clicks.
+
+### Statistical Analysis Plan
+- Compare HR@10 and NDCG@10 between SASRec and baselines.
+
+## Expected Outcomes
+- The LLM will exhibit low attention entropy (high sparsity), proving it acts as an information bottleneck.
+- The self-attention recommender system will significantly outperform the baseline, proving the same mathematical structure effectively models and captures human attention in an Internet product context.
+
+## Timeline and Milestones
+- Phase 2 (Setup): 15 mins
+- Phase 3 (Implementation of Exp 1 &amp; 2): 45 mins
+- Phase 4 (Experimentation): 30 mins
+- Phase 5 &amp; 6 (Analysis and Documentation): 30 mins
+
+## Potential Challenges
+- Provided datasets are small samples (100 rows), which might lead to noisy recommendation results or overfitting. We will mitigate this by acknowledging the small sample size and focusing on the mechanistic differences or fetching more data if necessary.
+- GPU availability might be an issue. We will use small models (GPT-2 small) and CPU-compatible setups if needed.
+
+## Success Criteria
+- Successful extraction and visualization of LLM attention entropy.
+- Successful training and evaluation of an attention-based recommender system vs. a baseline.
+- A comprehensive REPORT.md synthesizing these findings.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          LITERATURE REVIEW
+════════════════════════════════════════════════════════════════════════════════
+
+# Literature Review
+
+## Research Area Overview
+The hypothesis explores the universality of the &#34;attention mechanism,&#34; suggesting it extends beyond its implementation in Transformer architectures (like LLMs) into the broader Generative AI field and the &#34;attention economy&#34; of the Internet. The literature supports this by showing how transformers have revolutionized multiple domains (CV, Recommendation) and how digital platforms strategically capture human attention using AI-driven mechanisms.
+
+### Key Papers
+
+#### Paper 1: Attention Is All You Need
+- **Authors**: Vaswani et al.
+- **Year**: 2017
+- **Source**: NeurIPS
+- **Key Contribution**: Introduced the Transformer architecture and the self-attention mechanism, replacing RNNs/CNNs for sequence modeling.
+- **Methodology**: Scaled dot-product attention and multi-head attention.
+- **Relevance**: Foundation for the entire &#34;Attention&#34; movement in AI.
+
+#### Paper 2: An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale
+- **Authors**: Dosovitskiy et al.
+- **Year**: 2021 (arXiv 2020)
+- **Source**: ICLR
+- **Key Contribution**: Showed that the transformer architecture (ViT) can outperform CNNs in computer vision when pre-trained on large datasets.
+- **Relevance**: Supports the &#34;entire generative AI field&#34; part of the hypothesis by demonstrating attention&#39;s effectiveness in vision.
+
+#### Paper 3: Attention is all they need: Cognitive science and the (techno)political economy of attention in humans and machines
+- **Authors**: González de la Torre et al.
+- **Year**: 2024
+- **Source**: arXiv
+- **Key Contribution**: Analyzes the &#34;attention economy&#34; from a cognitive science and political economy perspective, linking AI-driven engagement to the capture of human attentional patterns.
+- **Methodology**: 4E approach to cognitive science (embodied, extended, enactive, ecological).
+- **Relevance**: Directly links the &#34;attention mechanism&#34; in AI to the &#34;attention economy&#34; of the Internet and human behavior.
+
+#### Paper 4: The Rising Entropy of English in the Attention Economy
+- **Authors**: Charlie Pilgrim, Weisi Guo, Thomas T. Hills
+- **Year**: 2021
+- **Source**: arXiv
+- **Key Contribution**: Provides empirical evidence that media producers generate higher entropy content in shorter formats to compete for human attention.
+- **Methodology**: Ecological model of the attention economy, Zipf&#39;s law, information foraging.
+- **Relevance**: Demonstrates how the &#34;Internet field&#34; is structured around competing for and utilizing human attention.
+
+#### Paper 5: Reusable Self-Attention-based Recommender System for Fashion
+- **Authors**: Several
+- **Year**: 2022
+- **Source**: arXiv
+- **Key Contribution**: Implementation of self-attention for sequential recommendation in an Internet product context.
+- **Relevance**: Shows practical application of attention mechanisms in core Internet product features (Recommendation).
+
+### Common Methodologies
+- **Self-Attention**: Used in NLP, CV, and Recommender Systems to capture dependencies regardless of distance.
+- **Information Foraging**: Used to model how humans search for and consume information in the attention economy.
+- **Entropy Analysis**: Used to measure information density and competition in the attention market.
+
+### Standard Baselines
+- **RNNs/CNNs**: Traditional baselines for sequence and image modeling.
+- **Collaborative Filtering**: Traditional baseline for recommender systems.
+- **Zipf&#39;s Law**: Baseline for understanding word/item frequency distributions.
+
+### Datasets in the Literature
+- **SQuAD, GLUE**: NLP benchmarks.
+- **ImageNet**: Computer Vision benchmark.
+- **MovieLens, Amazon Reviews**: Recommender systems benchmarks.
+- **Clickstream Data**: Used for analyzing Internet user behavior.
+
+### Gaps and Opportunities
+- **Cross-modal Attention**: How attention mechanisms unify different types of data (text, image, audio, behavior).
+- **Cognitive Impact**: Long-term effects of AI-mediated attention capture on human autonomy.
+- **Efficiency**: Reducing the computational cost of &#34;attention&#34; in large-scale systems.
+
+### Recommendations for Our Experiment
+- **Dataset**: Use a mix of &#34;Model Attention&#34; (e.g., extracting maps from ViT/GPT) and &#34;Human Attention&#34; (e.g., Clickstream/MovieLens).
+- **Metric**: Entropy of attention distributions, Click-through rates, Attention map sparsity.
+- **Code**: Build on `minGPT` for model analysis and `SASRec` for behavior analysis.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          PAPER REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+Generate a complete academic paper with the following structure:
+
+1. TITLE
+   - Clear, specific, informative
+   - Should convey main finding or contribution
+
+2. AUTHOR
+   - Use this exact author line in the \author{} block: Qianyi Li and NeuriCo
+
+3. ABSTRACT (150-250 words)
+   - Problem statement
+   - Approach
+   - Key results
+   - Significance
+
+4. INTRODUCTION
+   - Research problem and motivation
+   - Gap in existing work
+   - Our contribution (be specific)
+   - Paper organization
+
+5. RELATED WORK
+   - Organized by theme/approach
+   - Position our work relative to prior work
+   - Cite papers from literature review
+
+6. METHODOLOGY
+   - Clear description of approach
+   - Experimental setup
+   - Datasets used
+   - Evaluation metrics
+   - Baselines
+
+7. RESULTS
+   - Present results with tables and figures
+   - Statistical analysis
+   - Comparison to baselines
+   - Ablation studies (if applicable)
+
+8. DISCUSSION
+   - Interpretation of results
+   - Limitations
+   - Broader implications
+
+9. CONCLUSION
+   - Summary of contributions
+   - Key findings
+   - Future work
+
+10. REFERENCES
+   - BibTeX format
+   - All cited papers
+
+════════════════════════════════════════════════════════════════════════════════
+                          OUTPUT FORMAT
+════════════════════════════════════════════════════════════════════════════════
+
+Create a MODULAR LaTeX project with the following directory structure:
+
+paper_draft/
+├── main.tex              # Main file that imports all sections
+├── references.bib        # BibTeX references
+├── sections/
+│   ├── abstract.tex      # Abstract content
+│   ├── introduction.tex  # Introduction section
+│   ├── related_work.tex  # Related work section
+│   ├── methodology.tex   # Methodology section
+│   ├── results.tex       # Results section
+│   ├── discussion.tex    # Discussion section
+│   └── conclusion.tex    # Conclusion section
+├── figures/              # Directory for any generated figures
+├── tables/               # Directory for complex standalone tables
+└── appendix/             # Directory for appendix sections (if needed)
+
+INSTRUCTIONS:
+1. First, create the directory structure above (mkdir -p paper_draft/sections paper_draft/figures paper_draft/tables paper_draft/appendix)
+2. Write main.tex using the EXACT preamble for NEURIPS:
+
+   \documentclass{article}
+   \usepackage[final]{neurips_2025}  % NEURIPS style (neurips_2025.sty is in paper_draft/)
+   \usepackage[hidelinks]{hyperref}  % REQUIRED: clickable links
+   \usepackage{booktabs}  % REQUIRED: professional tables
+   \usepackage{graphicx}
+   \usepackage{amsmath,amssymb}
+
+   % Import command files
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+   % Use this bibliography style:
+   \bibliographystyle{plainnat}
+
+   \author{Qianyi Li and NeuriCo}
+
+   - Use \input{sections/...} to include each section
+   - Use \bibliography{references} for references
+3. Write each section file with COMPLETE content (no placeholders)
+4. Each section file should include its \section{} command
+5. Write references.bib with all citations in BibTeX format
+6. After writing all files, compile the paper:
+   cd paper_draft && pdflatex -interaction=nonstopmode main.tex && bibtex main && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
+
+This modular structure allows humans to easily:
+- Edit individual sections without navigating a large file
+- Track changes per section
+- Reuse sections across different paper versions
+
+════════════════════════════════════════════════════════════════════════════════
+                          QUALITY REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+- Academic tone throughout
+- All claims must be supported by data from the experiment report
+- Proper citations using \cite{} commands
+- Clear figures and tables with proper captions
+- NO placeholder text - every section must have real content
+- The paper MUST compile without errors
+- If compilation fails, debug and fix the LaTeX errors
+
+════════════════════════════════════════════════════════════════════════════════
+                          LAB WRITING STYLE
+════════════════════════════════════════════════════════════════════════════════
+
+Follow these lab-specific conventions to match our paper style:
+
+1. LANGUAGE STYLE:
+   - Use active voice: "We propose", "We examine", "We focus on"
+   - Be direct and confident: "Our main question is...", "We hypothesize that..."
+   - State things clearly and simply - prefer plain language over jargon
+   - Use bold questions as paragraph organizers: {\bf what is X?}
+   - Include specific quantitative claims: "8.97% over baseline"
+   - Avoid fancy wording: "utilize" → "use", "facilitate" → "help"
+
+2. INTRODUCTION STRUCTURE:
+   - Engaging hook (get to the point quickly)
+   - Problem importance
+   - Gap identification
+   - Your approach with method figure reference
+   - Quantitative preview of results
+   - Contribution bullets (3-4 items, action verbs)
+
+3. CONTRIBUTION LISTS:
+   \begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+       \item We propose...
+       \item We conduct...
+       \item We complement...
+   \end{itemize}
+
+4. MODULAR COMMANDS STRUCTURE:
+   Command templates are pre-copied to paper_draft/commands/:
+   - math.tex: Math notation macros
+   - general.tex: Formatting macros
+   - macros.tex: Project-specific term definitions (customize this for your paper)
+
+   In main.tex, include:
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+5. REFERENCE CONVENTIONS:
+   Use reference macros from math.tex:
+   - \figref{fig:name} for "figure 1" (lowercase, in-sentence)
+   - \Figref{fig:name} for "Figure 1" (capitalized, start of sentence)
+   - \secref{sec:name} for "section 2"
+
+6. TEXT FORMATTING:
+   - Use \para{Header text} for bold paragraph headers
+   - Define method/dataset names with \textsc and \xspace:
+     \newcommand{\methodname}{\textsc{MethodName}\xspace}
+
+7. TABLE FORMATTING:
+   - Use booktabs package (no vertical lines)
+   - Use \resizebox{\textwidth}{!}{...} for wide tables
+   - Use @{} to remove padding at table edges
+   - Use \cmidrule(lr){x-y} for sub-headers
+   - Use \textsc{} for dataset/method names in headers
+   - Bold best results with {\bf ...}
+
+8. FIGURE FORMATTING:
+   - Use 0.32\textwidth for 3-column subfigures
+   - Use 0.95\linewidth for full-width figures
+   - Use \input{figures/legend} for shared legends
+   - Write self-contained captions explaining key observations
+
+9. RESULTS PRESENTATION:
+   - Define \increase and \decrease for colored arrows (green up, red down)
+   - Bold best results in tables
+   - Report confidence intervals when available
+
+10. ALGORITHM STYLING:
+    - Use algpseudocode with [noend]
+    - Use \triangleright for comments
+
+11. HYPERLINKS (REQUIRED):
+    - Always use \usepackage[hidelinks]{hyperref} or with colored links
+    - All citations, section refs, figure refs, table refs must be clickable
+    - This is essential for reader navigation
+
+════════════════════════════════════════════════════════════════════════════════
+                          WORKFLOW: REVIEW AND REFLECT
+════════════════════════════════════════════════════════════════════════════════
+
+Before calling finish, you MUST complete these review steps:
+
+1. REVIEW RESOURCES (at the start):
+   - Read .gemini/skills/paper-writer/SKILL.md for detailed guidance
+   - Study templates/paper_writing/lab_style_guide.md for style conventions
+   - Browse paper_examples/ for formatting and language patterns
+
+2. SELF-REFLECTION (before finishing):
+   After writing all sections, review your work against these criteria:
+
+   LANGUAGE CHECK:
+   - [ ] Is the writing clear and jargon-free?
+   - [ ] Are claims specific with quantitative support?
+   - [ ] Is active voice used throughout?
+
+   FORMATTING CHECK:
+   - [ ] Does main.tex include \input{commands/math}, \input{commands/general}, \input{commands/macros}?
+   - [ ] Is hyperref package included for clickable references?
+   - [ ] Do tables use booktabs (no vertical lines)?
+   - [ ] Are best results bolded in tables?
+   - [ ] Are figures/tables properly captioned?
+
+   STRUCTURE CHECK:
+   - [ ] Does introduction follow: hook → importance → gap → approach → preview → contributions?
+   - [ ] Are contribution bullets specific with action verbs?
+   - [ ] Does the paper compile without errors?
+
+3. FIX ISSUES:
+   - Address any issues found in the self-reflection
+   - Re-compile and verify the PDF looks correct
+
+Only after completing this review should you consider the paper finished.
